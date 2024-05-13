@@ -1,0 +1,54 @@
+{
+	"pacientes": [
+        {
+            "nome": "Noah Marcelo Henry Viana",
+            "cpf": "692.698.321-63",
+            "data_nasc": "17/03/1990",
+            "sexo": "Masculino",
+            "celular": "(62) 99697-2416",
+            "esta_fumante": true,
+            "faz_uso_alcool": true,
+            "situacao_de_rua": true
+        },
+        {
+            "nome": "Iago Carlos Augusto Martins",
+            "cpf": "331.584.181-00",
+            "data_nasc": "24/03/1985",
+            "sexo": "Masculino",
+            "celular": "(62) 99638-5864",
+            "esta_fumante": true,
+            "faz_uso_alcool": false,
+            "situacao_de_rua": true
+        },
+        {
+            "nome": "Luan Arthur Benício Jesus",
+            "cpf": "004.463.681-48",
+            "data_nasc": "15/01/2001",
+            "sexo": "Masculino",
+            "celular": "(62) 98190-4964",
+            "esta_fumante": false,
+            "faz_uso_alcool": true,
+            "situacao_de_rua": true
+        },
+        {
+            "nome": "Alice Jaqueline Rocha",
+            "cpf": "309.658.491-55",
+            "data_nasc": "10/01/1978",
+            "sexo": "Feminino",
+            "celular": "(62) 99647-5080",
+            "esta_fumante": true,
+            "faz_uso_alcool": true,
+            "situacao_de_rua": false
+        },
+        {
+            "nome": "Juliana Cristiane Fabiana Ramos",
+            "cpf": "032.635.931-10",
+            "data_nasc": "01/02/1982",
+            "sexo": "Feminino",
+            "celular": "(62) 98727-6719",
+            "esta_fumante": true,
+            "faz_uso_alcool": false,
+            "situacao_de_rua": false
+        }
+    ]
+}  
