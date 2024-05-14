@@ -38,7 +38,7 @@ func fazConexaoComBanco() *sql.DB {
 }
 
 func cadastraPaciente(paciente Paciente) {
-	_, err := db.Exec(`INSERT INTO paciente (nome, cpf, data_nascimento, telefone_celular, sexo, esta_fumante, faz_uso_alcool, esta_situacao_rua) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`, paciente.Nome, paciente.Cpf, paciente.DataNascimento, paciente.Telefone, paciente.Sexo, paciente.EstaFumante, paciente.FazUsoAlcool, paciente.EstaSituacaoDeRua)
+	_, err := db.Exec(`INSERT INTO paciente (nome, cpf, data_nascimento, telefone_celular, sexo, esta_fumante, faz_uso_alcool, esta_situacao_rua) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) on conflict do nothing`, paciente.Nome, paciente.Cpf, paciente.DataNascimento, paciente.Telefone, paciente.Sexo, paciente.EstaFumante, paciente.FazUsoAlcool, paciente.EstaSituacaoDeRua)
 	if err != nil {
 		fmt.Println(err)
 	}
