@@ -4,20 +4,24 @@ import (
 	"database/sql"
 	"encoding/json"
 	"fmt"
-	"github.com/joho/godotenv"
-	_ "github.com/lib/pq"
+	"html/template"
 	"io"
 	"log"
 	"net/http"
 	"os"
+	"github.com/joho/godotenv"
+	_ "github.com/lib/pq"
+	"strings"
 )
 
 var db = fazConexaoComBanco()
+var templates = template.Must(template.ParseGlob("templates/*"))
 
 func main() {
 	// Configuração do servidor para servir arquivos estáticos (HTML, CSS, JS, imagens, etc.)
 	fs := http.FileServer(http.Dir("./"))
 	http.Handle("/", fs)
+	http.HandleFunc("/paciente", pacientes)
 
 	alimentaBancoDeDados()
 
@@ -27,6 +31,19 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+}
+
+func pacientes (w http.ResponseWriter, r *http.Request) {
+
+	err := r.ParseForm()
+	if err != nil {
+		return
+	}
+	busca := strings.TrimSpace(r.Form.Get("busca"))
+
+	Pacientes := buscaPacientePorNome(busca)
+
+	templates.ExecuteTemplate(w, "pacientes.html", Pacientes)
 }
 
 func fazConexaoComBanco() *sql.DB {
@@ -61,6 +78,49 @@ func cadastraPaciente(paciente Paciente) {
 	if err != nil {
 		fmt.Println(err)
 	}
+}
+
+func buscaPacientePorNome(nome string) Pacientes {
+	// retorna pacientes por nome
+	busca, err := db.Query(`SELECT * FROM paciente WHERE nome LIKE concat('%', text($1), '%')`, nome)
+	if err != nil {
+		fmt.Println(err)
+	}
+
+	var pacientes Pacientes
+
+	// Realiza a estrutura de repetição pegando todos os valores do banco
+	for busca.Next() {
+
+		var paciente Paciente
+
+		// Armazena os valores em variáveis
+		var Id uint64
+		var Nome, Cpf, DataNascimento, Telefone, Sexo string
+		var EstaFumante, FazUsoAlcool, EstaSituacaoDeRua bool
+
+		// Faz o Scan do SELECT
+		err = busca.Scan(&Id, &Nome, &Cpf, &DataNascimento, &Telefone, &Sexo, &EstaFumante, &FazUsoAlcool, &EstaSituacaoDeRua)
+		if err != nil {
+			panic(err.Error())
+		}
+
+		// Envia os resultados para a struct
+		paciente.Id = Id
+		paciente.Nome = Nome
+		paciente.Cpf = Cpf
+		paciente.DataNascimento = DataNascimento
+		paciente.Telefone = Telefone
+		paciente.Sexo = Sexo
+		paciente.EstaFumante = EstaFumante
+		paciente.FazUsoAlcool = FazUsoAlcool
+		paciente.EstaSituacaoDeRua = EstaSituacaoDeRua
+
+		// Junta a Struct com Array
+		pacientes.Pacientes = append(pacientes.Pacientes, paciente)
+	}
+
+	return pacientes
 }
 
 func alimentaBancoDeDados() {

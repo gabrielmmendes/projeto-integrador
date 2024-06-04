@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacientes</title>
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="cabecalho">
+        <h1>Lista de Pacientes</h1>
+        <form action="" method="get">
+            <label>
+              <input type="search" placeholder="Buscar pelo nome" name="busca" class="campo">
+              <button type="submit">🔍</button>
+            </label>
+          </form>
+        <table style="width: 100%;">
+            <tr>
+                <th>Nome do Paciente</th>
+                <th>CPF</th>
+                <th>Data de Nascimento</th>
+                <th>Sexo</th>
+                <th>Está fumante</th>
+                <th>Faz uso de álcool</th>
+            </tr>
+            {{range .Pacientes}}
+            <tr>
+                <td>{{.Nome}}</td>
+                <td>{{.Cpf}}</td>
+                <td>{{.DataNascimento}}</td>
+                <td>{{.Sexo}}</td>
+                {{if .EstaFumante}}
+                <td>✅</td>
+                {{else}}
+                <td>❌</td>
+                {{end}}
+                {{if .FazUsoAlcool}}
+                <td>✅</td>
+                {{else}}
+                <td>❌</td>
+                {{end}}
+                {{end}}
+            </tr>    
+    </table>
+    </div>
+</body>
+</html>

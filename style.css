@@ -4,7 +4,7 @@ body {
 }
 
 .cabecalho {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -18,4 +18,9 @@ h1 {
 
 p {
     color: #666;
+}
+
+table, th, td, tr {
+    border: 3px solid black;
+    border-collapse: collapse;
 }
